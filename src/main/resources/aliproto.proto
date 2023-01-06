@@ -1,0 +1,238 @@
+syntax = "proto3";
+
+package optim;
+
+message Position{
+    string mQual = 1;
+    string mLocation = 2;
+    int32 mRow2 = 3;
+    int32 mColumn = 4;
+    int32 mTier = 5;
+}
+
+message WorkInstruction{
+    uint32 WIRefNo = 1;
+    string WQName = 2;
+    string ContainerID = 3;
+    string FetchCHE = 4;
+    uint32 FetchTime = 5;
+    string CarryCHE = 6;
+    string PutCHE = 7;
+    uint32 DispatchTime = 8;
+    string PowName = 9;
+    Position FromPos = 10;
+    Position ToPos = 11;
+    string MoveKind = 12;
+    uint32 DoneTime = 13;
+    uint32 CtnSequence = 14;
+    uint32 WQSequence = 15;
+    string WIStatus = 16;
+    string JobStep = 17;
+    bytes DispatchWIBits = 18;
+    string Mark = 19;
+    string MarkType = 20;
+    uint32 MarkTime = 21;
+    uint32 TwinWIRefNo = 22;
+    bytes ExtendWIBits = 23;
+    uint32 TruckArriveCrnTime = 24;
+    uint32 CrnFetchtime = 25;
+    uint32 CrnPutTime = 26;
+    uint32 CarryArriveFromTime = 27;
+    uint32 CarryArriveToTime = 28;
+    string PosOnTruck = 29;
+    string Pavilion = 30;
+    uint32 CRSEQ = 31;
+    uint32 RTGSEQ = 32;
+    uint32 CarryDispatchTime = 33;
+}
+
+message Container{
+    string ContainerID = 1;
+    string EquipType = 2;
+    int32 nTEUs = 3;
+    string DepartRef = 4;
+    int32 TotalWeight = 5;
+    int32 EquipHeight = 6;
+    string Operator = 7;
+    string HazardClasses = 8;
+    string DamagedFlag = 9;
+    Position CurrentPos = 10;
+    Position PlanPos = 11;
+    uint32 RnDTime = 12;
+    string ODFlag = 13;
+    string StopSet = 14;
+    string StopZZ = 15;
+    string ReeferFlag = 16;
+    string OnPower = 17;
+    uint32 LOADWIRefNo = 18;
+    uint32 DSCHWIRefNo = 19;
+    uint32 YARDWIRefNo = 20;
+    uint32 DLVRWIRefNo = 21;
+    uint32 RECVWIRefNo = 22;
+    string DischPort = 23;
+    string Category = 24; 
+    string Status = 25;
+    string User6 = 26;
+    string mDoorDir = 27;
+    string bundledId = 28;
+    bytes ExtendBits = 29;
+    string User5 = 30;
+    string User7 = 31;
+    string ioSpeciStowage = 32;
+    string ExamineSeal = 33;
+    string User1 = 34;
+}
+
+message WorkQueue{
+    string WQName = 1;
+    string QLocQualifier = 2;
+    string QDeck = 3;
+    int32 mRow2 = 4;
+    string QType = 5;
+    string PowName = 6;
+    int32 SeqNoInPow = 7;
+    string ActiveFlag = 8;
+    string Vessel = 9;
+}
+
+message Pow{
+    string PowName = 1;
+    string PoolName = 2;
+    string DispatchMode = 3;
+    uint32 PowMaxPMS = 4;
+    uint32 PowMinPMS = 5;
+    uint32 PowRelativePriority = 6;
+    string CycleMode = 7;
+    string Truck220 = 8;
+    int32 Production = 9;
+    int32 DualProduction = 10;
+    int32 LaneNo = 11;
+    int32 TruckToPowMaxPMS=12;
+}
+
+message Che{
+    string ioShortName = 1;
+    uint32 ioCheKind = 2;
+    int32 ioMaxWeight = 3;
+    int32 ioMaxTEU = 4;
+    uint32 ioCheOperatingMode = 5;
+    string AllowedLength = 6;
+    string PoolName = 7;
+    string PowName = 8;
+    uint32 LastWIRefNo = 9;
+    uint32 CurrWIRefNo = 10;
+    uint32 CurrWIRefNo2 = 11;
+    int32 PlanTEU = 12;
+    int32 PlanWeight = 13;
+    bytes DispatchBits = 14;
+    string ioLastPos = 15;
+    uint32 ioCheStatus = 16;
+    string RDTStatus = 17;
+    string RDTUserID = 18;
+    int32 TruckSEQ = 19;
+    string StatusInfo = 20;
+    bytes WorkStatusBits = 21;
+    string CRUserID = 22;
+    string BDUserID = 23;
+    string ioWorkPos = 24;
+    string ioHandleHaz = 25;
+}
+
+message ECCheZone{
+    string ioCheShortName = 1;
+    string ioSelBlock = 2;
+    int32 ioSelFirstRow = 3;
+    int32 ioSelLastRow = 4;
+    int32 ioSelFirstColumn = 5;
+    int32 ioSelLastColumn = 6;
+    string ActiveFlag = 7;
+}
+
+message YardBlock{
+    string ioBlockCode = 1;
+    string ioBlockType = 2;
+    string ioTrafficFlow = 3;
+    uint32 ioInvertX = 4;
+    uint32 ioInvertY = 5;
+    int32 ioFirstRow = 6;
+    int32 ioLastRow = 7;
+    int32 ioTierCount = 8;
+}
+
+message YardRow{
+    string ioBlockCode = 1;
+    int32 ioRow = 2;
+    int32 ioFirstColumn = 3;
+    int32 ioLastColumn = 4;
+}
+
+message YardStack{
+    string ioBlockCode = 1;
+    int32 ioRow = 2;
+    int32 ioColumn = 3;
+    int32 iSpecMaxTier = 4;
+    int32 iStackMaxTier = 5;
+    int32 iReeferMaxTier = 6;
+    string cStackStatus = 7;
+    string cMenWorking = 8;
+    string cProtectStatus = 9;
+    string cPreventHighCube = 10;
+    string cFirstDeliver = 11;
+    string cHazardStatus = 12;
+    string cEngineDirection = 13;
+}
+
+message YardSlot{
+    string ioBlockCode = 1;
+    int32 ioRow = 2;
+    int32 ioColumn = 3;
+    int32 ioTier = 4;
+    int32 nCurrentCtns = 5;
+    string CurrentEquipID = 6;
+    int32 nFutureCtns = 7;
+    string FutureEquipID = 8;
+    uint32 bmUsingFlag = 9;
+}
+
+message VoyageSchedule{
+    string VesselRef = 1;
+    string VesselClass = 2;
+    uint32 ETD = 3;
+    int32 VesselBerth = 4;
+    int32 BerthLocation = 5;
+    uint32 SideTo = 6;
+    int32 Length = 7;
+    string VesselCode = 8;
+    uint32 ETA = 9;
+    string ioLoadPav = 10;
+    string ioDschPav = 11;
+}
+
+message Pool{
+    string PoolName = 1;
+    string Dispatcher = 2;
+    uint32 PoolBits = 3;
+}
+
+message EquipmentType{
+    string cEquipmentType = 1;
+    int32 iLength = 2;
+}
+
+message ECUser{
+    string RDTUserID = 1;
+    string RDTUserName = 2;
+    string HandleHaz = 3;
+    string HandleReefer = 4;
+}
+
+message AuxiliaryJob{
+    uint32 JobRefNo=1;
+    string VesselRef=2;
+    string WorkType=3;
+    int32 Bay=4;
+    string RDTID=5;
+    uint32 jobtime=6;
+    Position fromPos=7; 
+    uint32 jobendtime=8;
+}
